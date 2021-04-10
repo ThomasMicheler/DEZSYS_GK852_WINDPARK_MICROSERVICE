@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import io.pivotal.microservices.services.accounts.AccountsServer;
 import io.pivotal.microservices.services.registration.RegistrationServer;
 import io.pivotal.microservices.services.web.WebServer;
+import io.pivotal.microservices.services.windpark.WindparkServer;
 
 /**
  * Allow the servers to be invoked from the command-line. The jar is built with
@@ -66,6 +67,8 @@ public class Main {
             AccountsServer.main(args);
         } else if (serverName.equals("web")) {
             WebServer.main(args);
+        } else if (serverName.equals("windpark")) {
+            WindparkServer.main(args);
         } else {
             // Unrecognized server type - print usage and exit
             System.out.println("Unknown server type: " + serverName);
