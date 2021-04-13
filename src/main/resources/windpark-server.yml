@@ -6,8 +6,12 @@ spring:
     enabled: false           # Ignore Eureka dashboard FreeMarker templates
   thymeleaf:
     cache: false             # Allow Thymeleaf templates to be reloaded at runtime
-    prefix: classpath:/windpark-server/templates/    # Trailing / mandatory
-                             # Template location for this application only
+    prefix: classpath:/windpark-server/templates/    # Template location for this application only
+  data:
+    mongodb:
+      database: windpark
+      port: 27017
+      host: localhost
 
 # Map the error path to error template (for Thymeleaf)
 error.path: /error

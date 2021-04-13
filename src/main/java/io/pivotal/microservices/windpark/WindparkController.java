@@ -49,16 +49,16 @@ public class WindparkController {
 	 *             If the number is not recognised.
 	 */
 	@RequestMapping("/windpark/{windparkID}")
-	public Windpark byNumber(@PathVariable("windparkID") String windparkID) {
+	public WindengineData byNumber(@PathVariable("windparkID") String windparkID) {
 
 		logger.info("windpark-service byNumber() invoked: " + windparkID);
-		Windpark windpark = windparkRepository.findByNumber(windparkID);
-		logger.info("windpark-service findBzWindparkID() found: " + windpark.getId() );
+		List<WindengineData> listWindpark = windparkRepository.findByWindparkID(windparkID);
+		logger.info("windpark-service findBzWindparkID() found: " + listWindpark.size() );
 
-		if (windpark == null)
+		if (listWindpark == null && listWindpark.size() > 0)
 			throw new WindparkNotFoundException(windparkID);
 		else {
-			return windpark;
+			return listWindpark.get(0);
 		}
 	}
 

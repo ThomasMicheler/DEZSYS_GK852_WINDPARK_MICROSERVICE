@@ -7,9 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.context.annotation.ComponentScan;
 
 import io.pivotal.microservices.windpark.WindparkRepository;
-import io.pivotal.microservices.windpark.WindparkConfiguration;
 import io.pivotal.microservices.services.registration.RegistrationServer;
 
 /**
@@ -25,7 +26,8 @@ import io.pivotal.microservices.services.registration.RegistrationServer;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@Import(WindparkConfiguration.class)
+@EnableMongoRepositories(basePackages = "io.pivotal.microservices.windpark")
+@ComponentScan(basePackages = "io.pivotal.microservices.windpark")
 public class WindparkServer {
 
     @Autowired
