@@ -1,71 +1,101 @@
-# microservices-demo
+# Middleware Engineering "Microservices" - Taskdescription  
 
-Demo application to go with my [Microservices Blog](https://spring.io/blog/2015/07/14/microservices-with-spring) on the spring.io website.  **WARNING:** Only maven build has been updated.  Gradle build still to be done.
+Join GIT repository:   
+Video Stream:  
 
-![Demo System Schematic](https://github.com/paulc4/microservices-demo/blob/master/mini-system.jpg)
 
-Clone it and either load into your favorite IDE or use maven/gradle directly.
+## 1. Einführung
 
-_Note for gradle users:_ to make the intructions below build-tool independent, the gradle build copies its artifacts from `build/libs` to `target`.
+Diese Übung soll helfen die Funktionsweise und Einsatzmöglichkeiten von Microservices in dezentralen Systemen zu verstehen. Anhand eines Tutorials wird ein Microservice implementiert, das in weiterer Folge als Erweiterung zur Übung "GEK851 Windpark Document Oriented Middleware (MICT)" eingesetzt werden soll.
 
-## Versions
+Das Demo-Beispiel zu Microservices soll um ein weiteres Microservice "Windpark" erweitert werden.
 
-Current version (Jan 2021) v2.1.1 corresponds to Spring Boot 2.4.2 and Spring Cloud 2020.0.0 release train.
 
-Previous versions have been tagged and can be accessed using the `Branch` button above or using `git checkout <version>` - for example `git checkout v1.2.0`.
+## 2. Ziele
 
-Tagged versions are:
+Das Ziel dieser Übung ist die Implementierung eines Microservices und die Einbindung in ein bestehendes Middleware-System.
 
-* v2.1.1 - Spring Boot 2.4.2, Spring Cloud release-train 2020.0.0 and overdue update to Bootstrap 4 (Jan 2021)
-* v2.1.0 - Spring Boot 2.4.2 and Spring Cloud release-train 2020.0.0 (Jan 2021)
-* v2.0.0 - Spring Boot 2.0 and Spring Cloud release-train Finchley (Feb 2020)
-* v1.2.0 corresponds to Spring Boot 1.5 and Spring Cloud release-train Edgeware (Apr 2018)
-* v1.1.0 corresponds to Spring Cloud release-train Brixton (Jan 2018)
-* v1.0.0 corresponds to Spring Cloud release-train Angel.SR6 (May 2016)
+## 3. Voraussetzungen
 
-If running with Java 11 or later, you need to upgrade the build to include additional dependencies. Refer to https://github.com/paulc4/microservices-demo/issues/32 for details.
+* [GEK851 Windpark Document Oriented Middleware (MICT)](https://elearning.tgm.ac.at/mod/assign/view.php?id=168719)
+* Grundlagen Maven oder Gradle
+* [Grundlagen Spring Cloud](https://spring.io/)
+* [Grundlagen zu Spring Cloud Netflix](http://cloud.spring.io/spring-cloud-static/Greenwich.SR1/multi/multi__spring_cloud_netflix.html)
+* [Grundlagen Microservices](https://www.edureka.co/blog/what-is-microservices/)
+* [Microservices with Spring](https://spring.io/blog/2015/07/14/microservices-with-spring)
+* [Grundlagen Eureka Service](https://spring.io/guides/gs/service-registration-and-discovery/)
+* [Service Registration with Eureka](https://www.tutorialspoint.com/spring_boot/spring_boot_service_registration_with_eureka.htm)
 
-## Using an IDE
 
-You can run the system in your IDE by running the three server classes in order: _RegistrationService_, _AccountsService_ and _WebService_.  Each is a Spring Boot application using embedded Tomcat.  If using Spring Tools use `Run As ... Spring Boot App` otherwise just run each as a Java application - each has a static `main()` entry point.
+## 4. Aufgabenstellung
 
-As discussed in the Blog, open the Eureka dashboard [http://localhost:1111](http://localhost:1111) in your browser to see that the `ACCOUNTS-SERVICE` and `WEB-SERVICE` applications have registered.  Next open the Demo Home Page [http://localhost:3333](http://localhost:3333) in and click one of the demo links.
+Führen Sie die einzelnen Schritte des Tutorials ["Microservices with Spring"](https://spring.io/blog/2015/07/14/microservices-with-spring) durch und implementieren Sie das Beispiel zu Account Service.
 
-The `localhost:3333` web-site is being handled by a Spring MVC Controller in the _WebService_ application, but you should also see logging output from _AccountsService_ showing requests for Account data.
+Wenn das Account Service funktionsfähig ist, dann probieren Sie das Account Service um ein Windpark Service zu erweitern. Es wird empfohlen das Account Service samt Attribute zu kopieren. Es werden hier nur die Daten der Embedded-Datenquelle ausgelesen. Wenn dieser Schritt funktioniert, dann erweitern Sie das Beispiel und verbinden Sie das Windpark Service mit dem MongoDB Repository von der Windpark-Zentrale und lesen Sie einen beliebgen Wert einer Windengine aus.
 
-## Command Line
+## 5. Demo Applikation
 
-You may find it easier to view the different applications by running them from a command line since you can place the three windows side-by-side and watch their log output
+* Installation aller erforderlichen Pakete (einmalig)  
+  `mvn clean install`
 
-For convenience we are building a 'fat' executble jar whose start-class (main method entry-point) is defined to be in the class `io.pivotal.microservices.services.Main`.  This application expects a single command-line argument that tells it to run as any of our three servers.
+* Erstellen der Applikation (JAR)  
+  `mvn package`
 
-```
-java -jar target/microservices-demo-2.0.0.RELEASE.jar registration|accounts|web
-```
+* Starten der Microservice Registrierung   
+  `java -jar target/microservices-demo-2.1.0.RELEASE.jar registration`
 
-### Procedure
+* Starten des Microservice Accounts  
+  `java -jar target/microservices-demo-2.1.0.RELEASE.jar accounts`
 
-To run the microservices system from the command-line, open three CMD windows (Windows) or three Terminal windows (MacOS, Linux) and arrange so you can view them conveniently.
+* Starten des Microservice Web  
+  `java -jar target/microservices-demo-2.1.0.RELEASE.jar web`
 
- 1. In each window, change to the directory where you cloned the demo.
- 1. In the first window, build the application using either `./mvnw clean package` or `./gradlew clean assemble`.  Either way the
-    generated file will be `target/microservices-demo-2.0.0.RELEASE.jar` (even if you used gradle).
- 1. In the same window run: `java -jar target/microservices-demo-2.0.0.RELEASE.jar registration`
- 1. Switch to the second window and run: `java -jar target/microservices-demo-2.0.0.RELEASE.jar accounts`
- 1. In the third window run: `java -jar target/microservices-demo-2.0.0.RELEASE.jar web`
- 1. In your favorite browser open the same two links: [http://localhost:1111](http://localhost:1111) and [http://localhost:3333](http://localhost:3333)
+## 6. Bewertung
+Gruppengrösse: 2 Person  
 
-You should see servers being registered in the log output of the first (registration) window.
-As you interact wiht the Web application, you should logging in the both the second and third windows.
+### 6.1 Grundanforderungen **überwiegend erfüllt**
+- Durchlesen des Tutorials "[Microservices with Spring](https://spring.io/blog/2015/07/14/microservices-with-spring)"
+- Implementieren des Beispiels "Account Service"
+- **Einzelne Schritte und Komponenten des Beispiels verstehen und im Protokoll dokumentieren**
+- Entwickeln Sie aus der Kopie des "Account Service" ein neues "Windpark Service" (Port 4444)
+- **Alle Erweiterungen im Protokoll erklaeren und dokumentieren**
+- Beantwortung der Fragestellungen  
+- Loesungsansatz finden Sie im Branch "windpark-server-embedded-db" unter [https://github.com/ThomasMicheler/DEZSYS_GK852_WINDPARK_MICROSERVICE.git](https://github.com/ThomasMicheler/DEZSYS_GK852_WINDPARK_MICROSERVICE.git)
 
-For a list of valid accounts refer to the [data.sql](https://github.com/paulc4/microservices-demo/blob/master/src/main/resources/testdb/data.sql) that is used by the Account Service to set them up.
+### 6.2 Grundanforderungen **zur Gänze erfüllt**
+- Erweiterung des Windpark Service zur Abfrage eines Datensatzes aus dem NoSQL Repository zu "GEK851 Windpark Document Oriented Middleware (MICT)"
+- **Alle Erweiterungen im Protokoll erklaeren und dokumentieren**
+- Loesungsansatz finden Sie im Branch "windpark-server-mongodb" unter [https://github.com/ThomasMicheler/DEZSYS_GK852_WINDPARK_MICROSERVICE.git](https://github.com/ThomasMicheler/DEZSYS_GK852_WINDPARK_MICROSERVICE.git)
 
- 1. In a new window, run up a second account-server using HTTP port 2223:
-     * `java -jar target/microservices-demo-2.0.0.RELEASE.jar accounts 2223`
- 1. Allow it to register itself
- 1. Kill the first account-server and see the web-server switch to using the new account-server - no loss of service.
+### 6.3 Erweiterte Anforderungen **überwiegend erfüllt**
+- Erweiterung des Windpark Service um folgende Funktionalitaet  
+ - Selektion eines Datensatzes durch Angabe von WindparkID, WindengineID und Zeit
+ - **Alle Erweiterungen im Protokoll erklaeren und dokumentieren**
+- Definition des Begriffs "**Service Mesh**"
+- Was sind die **Funktionalitaeten** eines "Service Mesh"?
+- Recherchieren nach **2 bekannten Herstellern** eines "Service Mesh" und beschreiben kurz deren Funktionsumfang
+- **Stellen Sie die 2 Produkte gegenueber und vergleichen Sie diese**
 
-## Using Docker
+### 6.4 Erweiterte Anforderungen **zur Gänze erfüllt**
+- Erweiterung des Windpark Service (nach der Selektion siehe "Erweiterte Anforderungen überwiegend erfüllt") um folgende Funktionalitaet
+ - Bieten Sie eine Moeglichkeit an, um alle Felder des Datensatzes aendern zu koennen (ausgenommen WindparkID, WindengineID)
+ - Fuehren Sie die Aenderungen im NoSQL Repository durch
+ - **Alle Erweiterungen im Protokoll erklaeren und dokumentieren**
 
-This application can also be run using 3 docker containers. See [here](use-docker.md).
+## 7. Fragestellung für Protokoll
 
++ Was versteht man unter Microservices?
++ Stellen Sie anhand eines Beispiels den Einsatz von Microservices dar.
++ Wie kann man Spring Cloud nutzen und welche Tools werden dabei unterstützt?
++ Beschreiben Sie das Spring Cloud Netflix Projekt. Aus welchen Bestandteilen setzt sich dieses Projekt zusammen?
++ Wofür werden die Annotations @EnableEurekaServer und @EnableDiscoveryClient verwendet?
++ Wie werden in dem Account Service die Properties gesetzt und welche Parameter werden hier verwendet?
++ Wie funktioniert das Logging bei diesem Beispiel? Ist es möglich das Logging zu erhöhen bzw. komplett abzudrehen?
+  Wenn ja, wie?
+
+## 8. Links und Dokumente
+* [Microservices with Spring](https://spring.io/blog/2015/07/14/microservices-with-spring)
+* [Microservices with Spring Boot](https://medium.com/omarelgabrys-blog/microservices-with-spring-boot-intro-to-microservices-part-1-c0d24cd422c3)
+* [Eureka – Microservice-Registry mit Spring Cloud](https://www.heise.de/developer/artikel/Eureka-Microservice-Registry-mit-Spring-Cloud-2848238.html?seite=all)
+* [Spring Boot Tutorial: In 10 Schritten zur Microservices-Architektur](https://jaxenter.de/spring-boot-tutorial-microservices-cloud-foundry-kubernetes-58695)
+* [Introducing Spring Cloud](https://spring.io/blog/2014/06/03/introducing-spring-cloud)
