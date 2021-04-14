@@ -1,6 +1,6 @@
 # Middleware Engineering "Microservices" - Taskdescription  
 
-Join GIT repository:   
+Join GIT repository: https://classroom.github.com/a/TlHM6PIl
 Video Stream:  
 
 
@@ -92,6 +92,9 @@ Gruppengrösse: 2 Person
 + Wie werden in dem Account Service die Properties gesetzt und welche Parameter werden hier verwendet?
 + Wie funktioniert das Logging bei diesem Beispiel? Ist es möglich das Logging zu erhöhen bzw. komplett abzudrehen?
   Wenn ja, wie?
++ Nennen Sie 5 Vorteile eine Microservice Architektur.
++ Welche Nachteile/Herausforderungen ergeben sich durch eine Microservice Architektur.
+
 
 ## 8. Links und Dokumente
 * [Microservices with Spring](https://spring.io/blog/2015/07/14/microservices-with-spring)
